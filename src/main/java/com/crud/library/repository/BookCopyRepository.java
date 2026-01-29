@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface BookCopyRepository extends CrudRepository<BookCopy,Long> {
 
-    List<BookCopy> findByTitleIdAndStatus(Title titleId, BookStatus status);
+    List<BookCopy> findByTitleAndStatus(Title title, BookStatus status);
 }
