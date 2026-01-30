@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface RentalRepository extends CrudRepository<Rental,Long> {
 
-    Optional<Rental> findByBookCopyIdAndReturnDateIsNull(BookCopy bookCopy);
+    Optional<Rental> findByBookCopyAndReturnDateIsNull(BookCopy bookCopy);
 }

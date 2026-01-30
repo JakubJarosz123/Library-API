@@ -28,7 +28,7 @@ public class RentalService {
         Reader reader = readerRepository.findById(readerId).orElseThrow(() -> new RuntimeException("Reader not found"));
         BookCopy bookCopy = bookCopyRepository.findById(bookCopyId).orElseThrow(() -> new RuntimeException("Book copy not found"));
 
-        Optional<Rental> isAvailable = rentalRepository.findByBookCopyIdAndReturnDateIsNull(bookCopy);
+        Optional<Rental> isAvailable = rentalRepository.findByBookCopyAndReturnDateIsNull(bookCopy);
         if (isAvailable.isPresent()) {
             throw new RuntimeException("Book copy is already rented");
         }
@@ -40,11 +40,15 @@ public class RentalService {
     }
 
     public Rental returnBook(Long readerId, Long bookCopyId) {
-        Reader reader = readerRepository.findById(readerId).orElseThrow(() -> new RuntimeException("Reader not found"));
+        readerRepository.findById(readerId).orElseThrow(() -> new RuntimeException("Reader not found"));
         BookCopy bookCopy = bookCopyRepository.findById(bookCopyId).orElseThrow(() -> new RuntimeException("Book copy not found"));
 
-        Rental rental = rentalRepository.findByBookCopyIdAndReturnDateIsNull(bookCopy)
+        Rental rental = rentalRepository.findByBookCopyAndReturnDateIsNull(bookCopy)
                         .orElseThrow(() -> new RuntimeException("Book copy is not currently rented"));
+
+        if(!rental.getReader().getId().equals(readerId)) {
+            throw new RuntimeException("Book is rented by different reader.");
+        }
 
         bookCopy.setStatus(BookStatus.AVAILABLE);
         rental.setReturnDate(LocalDate.now());

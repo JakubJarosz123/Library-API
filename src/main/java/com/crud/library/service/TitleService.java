@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -14,9 +15,24 @@ public class TitleService {
 
     private final TitleRepository titleRepository;
 
-    public Title addTitle(String title, String author, int publicationYear) {
-        Title titleOne = new Title(null, title, author, publicationYear);
+    public void addTitle(Title title) {
+        titleRepository.save(title);
+    }
 
-        return titleRepository.save(titleOne);
+    public List<Title> getAllTitles() {
+        return (List<Title>) titleRepository.findAll();
+    }
+
+    public Title updateTitle(Title title) {
+        Title titleFromDb = titleRepository.findById(title.getId()).orElseThrow(() -> new RuntimeException("Title id not found"));
+        titleFromDb.setTitle(title.getTitle());
+        titleFromDb.setAuthor(title.getAuthor());
+        titleFromDb.setPublicationYear(title.getPublicationYear());
+
+        return titleFromDb;
+    }
+
+    public void deleteTitle(Long id) {
+        titleRepository.deleteById(id);
     }
 }

@@ -37,10 +37,10 @@ public class RentalRepositoryTest {
 
         BookCopy bookCopy = bookCopyRepository.save(new BookCopy(null, title, BookStatus.BORROWED));
 
-        Rental rental = rentalRepository.save(new Rental(null, bookCopy, reader, LocalDate.now(), null));
+        rentalRepository.save(new Rental(null, bookCopy, reader, LocalDate.now(), null));
 
         //When
-        Optional<Rental> activeRental = rentalRepository.findByBookCopyIdAndReturnDateIsNull(bookCopy);
+        Optional<Rental> activeRental = rentalRepository.findByBookCopyAndReturnDateIsNull(bookCopy);
 
         //Then
         assertTrue(activeRental.isPresent());
