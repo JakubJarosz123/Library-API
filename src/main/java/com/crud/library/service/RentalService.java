@@ -7,7 +7,6 @@ import com.crud.library.domain.Rental;
 import com.crud.library.repository.BookCopyRepository;
 import com.crud.library.repository.ReaderRepository;
 import com.crud.library.repository.RentalRepository;
-import com.crud.library.repository.TitleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;

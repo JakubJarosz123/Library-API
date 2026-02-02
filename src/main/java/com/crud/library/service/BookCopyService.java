@@ -16,20 +16,23 @@ public class BookCopyService {
 
     private final BookCopyRepository bookCopyRepository;
 
-    public BookCopy addBookCopy(Title title, BookStatus status) {
-        BookCopy bookCopy = new BookCopy(null, title, status);
-
+    public BookCopy addBookCopy(BookCopy bookCopy) {
         return bookCopyRepository.save(bookCopy);
     }
 
     public BookCopy changeStatus(Long id, BookStatus status) {
-        BookCopy bookCopy = bookCopyRepository.findById(id).orElse(null);
+        BookCopy bookCopy = bookCopyRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("BookCopy with id " + id + " not found!"));
         bookCopy.setStatus(status);
 
         return bookCopyRepository.save(bookCopy);
     }
 
-    public List<BookCopy> findAllAvailableBookCopies(Title title) {
-        return bookCopyRepository.findByTitleAndStatus(title, BookStatus.AVAILABLE);
+    public List<BookCopy> findAllAvailableBookCopies(Long titleId) {
+        return bookCopyRepository.findByTitleIdAndStatus(titleId, BookStatus.AVAILABLE);
+    }
+
+    public void deleteBookCopy(Long id) {
+        bookCopyRepository.deleteById(id);
     }
 }

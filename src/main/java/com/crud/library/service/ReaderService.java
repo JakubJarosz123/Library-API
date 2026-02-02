@@ -16,8 +16,8 @@ public class ReaderService {
 
     private final ReaderRepository readerRepository;
 
-    public void addReader(Reader reader){
-        readerRepository.save(reader);
+    public Reader addReader(Reader reader){
+        return readerRepository.save(reader);
     }
 
     public List<Reader> getAllReaders(){

@@ -29,8 +29,8 @@ public class ReaderController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReaderDto> addReader(@RequestBody ReaderDto readerDto) {
         Reader reader = mapper.mapToReader(readerDto);
-        readerService.addReader(reader);
-        return ResponseEntity.ok().build();
+        Reader saved = readerService.addReader(reader);
+        return ResponseEntity.ok(mapper.mapToReaderDto(saved));
     }
 
     @PutMapping
@@ -41,7 +41,7 @@ public class ReaderController {
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<ReaderDto> deleteReader(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteReader(@PathVariable Long id) {
         readerService.deleteReader(id);
         return ResponseEntity.noContent().build();
     }

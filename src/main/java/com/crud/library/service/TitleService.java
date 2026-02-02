@@ -15,8 +15,8 @@ public class TitleService {
 
     private final TitleRepository titleRepository;
 
-    public void addTitle(Title title) {
-        titleRepository.save(title);
+    public Title addTitle(Title title) {
+        return titleRepository.save(title);
     }
 
     public List<Title> getAllTitles() {

@@ -35,12 +35,12 @@ public class TitleController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TitleDto> addTitle(@RequestBody TitleDto titleDto) {
         Title title = mapper.mapToTitle(titleDto);
-        titleService.addTitle(title);
-        return ResponseEntity.ok().build();
+        Title saved = titleService.addTitle(title);
+        return ResponseEntity.ok(mapper.mapToTitleDto(saved));
     }
 
     @DeleteMapping(value = "{id}")
-    public ResponseEntity<TitleDto> deleteTitle(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTitle(@PathVariable Long id) {
         titleService.deleteTitle(id);
         return ResponseEntity.noContent().build();
     }
