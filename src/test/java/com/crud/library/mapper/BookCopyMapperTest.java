@@ -1,0 +1,67 @@
+package com.crud.library.mapper;
+
+import com.crud.library.domain.BookCopy;
+import com.crud.library.domain.BookStatus;
+import com.crud.library.domain.Title;
+import com.crud.library.domain.dto.BookCopyDto;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class BookCopyMapperTest {
+
+    private BookCopyMapper bookCopyMapper;
+    private BookCopy bookCopy;
+    private BookCopyDto bookCopyDto;
+    private Title title;
+
+    @BeforeEach
+    void setup() {
+        bookCopyMapper = new BookCopyMapper();
+        title = new Title(1L, "LOTR", "Tolkien", 1950);
+        bookCopy = new BookCopy(1L, title, BookStatus.AVAILABLE);
+        bookCopyDto = new BookCopyDto(1L, title, BookStatus.AVAILABLE);
+    }
+
+    @Test
+    void shouldMapToBookCopyDto() {
+        //Given & When
+        BookCopyDto mappedBookCopyDto = bookCopyMapper.mapToBookCopyDto(bookCopy);
+        //Then
+        assertEquals(bookCopy.getId(), mappedBookCopyDto.getId());
+        assertEquals(bookCopy.getTitle(), mappedBookCopyDto.getTitle());
+        assertEquals(bookCopy.getStatus(), mappedBookCopyDto.getBookStatus());
+    }
+
+    @Test
+    void shouldMapToBookCopy() {
+        //Given & When
+        BookCopy mappedBookCopy = bookCopyMapper.mapToBookCopy(bookCopyDto);
+        //Then
+        assertEquals(bookCopy.getId(), mappedBookCopy.getId());
+        assertEquals(bookCopy.getTitle(), mappedBookCopy.getTitle());
+        assertEquals(bookCopy.getStatus(), mappedBookCopy.getStatus());
+    }
+
+    @Test
+    void shouldMapToBookCopyList() {
+        //Given
+        List<BookCopy> bookCopies = List.of(
+                new BookCopy(1L, title, BookStatus.AVAILABLE),
+                new BookCopy(2L, title, BookStatus.AVAILABLE)
+        );
+        //When
+        List<BookCopyDto> bookCopyDtoList = bookCopyMapper.mapToBookCopyList(bookCopies);
+        //Then
+        assertEquals(bookCopies.size(), bookCopyDtoList.size());
+        assertEquals(bookCopies.get(0).getId(), bookCopyDtoList.get(0).getId());
+        assertEquals(bookCopies.get(1).getId(), bookCopyDtoList.get(1).getId());
+        assertEquals(bookCopies.get(0).getTitle(), bookCopyDtoList.get(0).getTitle());
+        assertEquals(bookCopies.get(1).getTitle(), bookCopyDtoList.get(1).getTitle());
+        assertEquals(bookCopies.get(0).getStatus(), bookCopyDtoList.get(0).getBookStatus());
+        assertEquals(bookCopies.get(1).getStatus(), bookCopyDtoList.get(1).getBookStatus());
+    }
+}

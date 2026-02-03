@@ -52,7 +52,7 @@ public class RentalService {
         bookCopy.setStatus(BookStatus.AVAILABLE);
         rental.setReturnDate(LocalDate.now());
 
-        return rentalRepository.save(rental);
+        return rental;
     }
 
 }

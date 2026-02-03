@@ -33,7 +33,7 @@ public class BookCopyRepositoryTest {
         bookCopyRepository.save(new BookCopy(null, title, BookStatus.AVAILABLE));
 
         //Then
-        List<BookCopy> bookCopies = bookCopyRepository.findByTitleAndStatus(title, BookStatus.AVAILABLE);
+        List<BookCopy> bookCopies = bookCopyRepository.findByTitleIdAndStatus(title.getId(), BookStatus.AVAILABLE);
 
         assertEquals(2,  bookCopies.size());
     }
