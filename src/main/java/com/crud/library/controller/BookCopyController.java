@@ -34,7 +34,7 @@ public class BookCopyController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<BookCopyDto> changeStatusOfBookCopy(@PathVariable Long id, @RequestParam BookStatus bookStatus) {
+    public ResponseEntity<BookCopyDto> changeStatusOfBookCopy(@PathVariable Long id, @RequestBody BookStatus bookStatus) {
         BookCopy savedBookCopy = bookCopyService.changeStatus(id, bookStatus);
         return ResponseEntity.ok(mapper.mapToBookCopyDto(savedBookCopy));
     }

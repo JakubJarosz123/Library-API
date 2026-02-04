@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "Title")
+@Table(name = "title")
 public class Title {
 
     @Id
@@ -25,6 +25,6 @@ public class Title {
     @Column(name = "author")
     private String author;
 
-    @Column(name = "publicationYear")
+    @Column(name = "publication_year")
     private int publicationYear;
 }

@@ -4,13 +4,15 @@ import com.crud.library.domain.BookStatus;
 import com.crud.library.domain.Title;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class BookCopyDto {
     private Long id;
-    private Title title;
+    private Long titleId;
     private BookStatus bookStatus;
 }

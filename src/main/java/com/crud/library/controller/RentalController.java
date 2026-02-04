@@ -17,8 +17,8 @@ public class RentalController {
     private final RentalMapper mapper;
 
     @PostMapping
-    public ResponseEntity<RentalDto> rentBook(@RequestParam Long readerId, @RequestParam Long bookCopyId ) {
-        Rental rental = rentalService.rentBook(readerId, bookCopyId);
+    public ResponseEntity<RentalDto> rentBook(@RequestBody RentalDto rentalDto) {
+        Rental rental = rentalService.rentBook(rentalDto.getReaderId(), rentalDto.getBookCopyId());
         return ResponseEntity.ok(mapper.mapToRentalDto(rental));
     }
 
